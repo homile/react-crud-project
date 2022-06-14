@@ -1,8 +1,9 @@
 import React from 'react'
+import './App.css'
 
 function App() {
   return (
-    <div>App</div>
+    <header className='App-header'>React-CRUD-Project</header>
   )
 }
 
