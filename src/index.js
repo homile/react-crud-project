@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* 프로젝트 제목 */}
+    <header className='App-header'>React-CRUD-Project</header>
     <App />
   </React.StrictMode>
 );
