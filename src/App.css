@@ -29,10 +29,14 @@
   align-items: center;
   border: 1px solid black;
   width: 40vw;
-  height: 70vh;
+  height: 70vh;;
 }
 
 .table-title{
   display: flex;
   flex-direction: row;
+}
+
+.tab{
+  margin: 0px 10px
 }

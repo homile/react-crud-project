@@ -1,15 +1,20 @@
 import React from 'react'
 import './ContentList.css'
+import data from '../resource/dummyData.js'
 
 function ContentList() {
   return (
-    <div className="row">
-      {/* data의 번호 */}
-      <div className="col">{'번호 들어갈 자리'}</div>
-      {/* data의 제목 */}
-      <div className="col">{'제목 들어갈 자리'}</div>
-      {/* data의 작성일자 */}
-      <div className="col">{'작성일자 들어갈 자리'}</div>
+    <div className="content">
+      {data.map((data) => {
+        // console.log(data)
+        return(
+          <div className="row">
+            <div className="col">{data.id}</div> 
+            <div className="col">{data.title}</div> 
+            <div className="col">{data.createdAt}</div> 
+          </div>
+        )
+      })}
     </div>
   )
 }

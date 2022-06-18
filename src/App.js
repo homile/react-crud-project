@@ -4,6 +4,7 @@ import ContentList from './pages/ContentList'
 import './App.css'
 
 function App() {
+
   return (
     <div className='container'>
       {/* 왼쪽 목록 */}
@@ -13,9 +14,9 @@ function App() {
           <button>글쓰기</button>
         </div>
         <div className="table-title">
-          <div>번호</div>
-          <div>제목</div>
-          <div>날짜</div>
+          <div className="tab">번호</div>
+          <div className="tab">제목</div>
+          <div className="tab">날짜</div>
         </div>
         <ContentList/>
       </div>
