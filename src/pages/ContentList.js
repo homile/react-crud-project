@@ -1,20 +1,14 @@
 import React from 'react'
 import './ContentList.css'
-import data from '../resource/dummyData.js'
 
-function ContentList() {
+function ContentList({datas}) {
   return (
     <div className="content">
-      {data.map((data) => {
-        // console.log(data)
-        return(
-          <div className="row">
-            <div className="col">{data.id}</div> 
-            <div className="col">{data.title}</div> 
-            <div className="col">{data.createdAt}</div> 
-          </div>
-        )
-      })}
+      <div className="row">
+        <div className="col">{datas.id}</div> 
+        <div className="col">{datas.title}</div> 
+        <div className="col">{datas.createdAt}</div> 
+      </div>  
     </div>
   )
 }
