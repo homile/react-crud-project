@@ -10,6 +10,8 @@ function App() {
   const [dummyData, setDummyData] = useState(data);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [id, setId] = useState('');
+  const [createBtn, setCreateBtn] = useState(false);
 
   let idLen = dummyData.length+1;
 
@@ -19,7 +21,7 @@ function App() {
       username: 'MinWoo',
       title,
       content,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toLocaleDateString(),
     }
     console.log('저장 버튼 클릭');
     // console.log(datas);
@@ -28,15 +30,30 @@ function App() {
   });
 
 
-  const handelCreateTitle = ((e) => {
+  const handleCreateTitle = ((e) => {
     // console.log(e.target)
     setTitle(e.target.value);
   });
 
-  const handelCreateContent = ((e) => {
+  const handleCreateContent = ((e) => {
     // console.log(e.target)
     setContent(e.target.value);
   });
+
+  const handleTitleClick = ((e) => {
+    // console.log(e.target.id)
+    setId(e.target.id);
+  });
+
+  const handleCreateBtn = (() => {
+    createBtn ? setCreateBtn(false) : setCreateBtn(true); 
+  });
+
+  // 저장 버튼 눌렀을 경우
+  useEffect(()=>{
+    setCreateBtn(false);
+    setId(dummyData.length);
+  },[dummyData])
   
 
   return (
@@ -45,7 +62,7 @@ function App() {
       <div className="table">
         <div className='table-title'>
           <span>목록</span>
-          <button>글쓰기</button>
+          <button onClick={handleCreateBtn}>글쓰기</button>
         </div>
         <div className="table-title">
           <div className="tab">번호</div>
@@ -53,18 +70,33 @@ function App() {
           <div className="tab">날짜</div>
         </div>
         {dummyData.map((datas)=>(
-          <ContentList key={datas.id} datas={datas}/>
+          <ContentList 
+            key = {datas.id} 
+            datas = {datas}
+            onHandleTitleClick = {handleTitleClick}
+          />
         ))
         }
       </div>
       {/* 오른쪽 Create 컴포넌트 */}
-      <Create 
-        datas={dummyData} 
-        onSubmitClick = {handleSubmitClick} 
-        onHandelCreateTitle = {handelCreateTitle}
-        onHandelCreateContent = {handelCreateContent}
-      />
-      <Read/>
+      {
+        createBtn 
+        ? <Create 
+          onSubmitClick = {handleSubmitClick} 
+          onHandleCreateTitle = {handleCreateTitle}
+          onHandleCreateContent = {handleCreateContent}
+          onHandleCreateBtn = {handleCreateBtn}
+        />
+        :id
+        ? <Read 
+          datas = {dummyData}
+          titleClickId = {Number(id)}
+        />
+        :<Read 
+          datas = {dummyData}
+          titleClickId = {Number(dummyData.length)}
+        />
+      }
     </div>
   )
 }

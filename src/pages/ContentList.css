@@ -6,3 +6,7 @@
 .col{
   margin: 10px;
 }
+
+.col-title{
+  cursor: pointer;
+}

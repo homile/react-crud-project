@@ -1,9 +1,16 @@
 import React from 'react'
 
-function Read() {
+function Read({datas, titleClickId}) {
+  // console.log(titleClickId);
+  const titleClickContent = datas.filter((el)=>el.id === titleClickId);
+  // console.log(titleClickContent);
+
   return (
     <div className='Content'>
-      Read
+      <div>{titleClickContent[0].title}</div>
+      <div>{titleClickContent[0].username}{titleClickContent[0].createdAt}</div>
+      <div>{titleClickContent[0].content}</div>
+      <button>수정하기</button>
     </div>
   )
 }

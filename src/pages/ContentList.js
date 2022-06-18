@@ -1,12 +1,17 @@
 import React from 'react'
 import './ContentList.css'
 
-function ContentList({datas}) {
+function ContentList({datas, onHandleTitleClick}) {
   return (
     <div className="content">
       <div className="row">
         <div className="col">{datas.id}</div> 
-        <div className="col">{datas.title}</div> 
+        <div className="col col-title" 
+          id={datas.id} 
+          onClick={onHandleTitleClick}
+          >
+            {datas.title}
+        </div> 
         <div className="col">{datas.createdAt}</div> 
       </div>  
     </div>
