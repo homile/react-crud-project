@@ -1,18 +1,22 @@
 import React from 'react'
 
-function Read({datas, titleClickId, onHandleDeleteBtn}) {
+function Read({datas, titleClickId, onHandleDeleteBtn, onHandleUpdateTitle, onHandleUpdateContent, modify, modifyClick,onHandleChange}) {
   // console.log(titleClickId);
   const titleClickContent = datas.filter((el)=>el.id === titleClickId);
 
   return (
-    <div className='Content'>
+    <div>
       {titleClickContent.length !== 0 ?
-        <div>
+        modifyClick === false ? 
+        <div className='Content'>
           <div>{titleClickContent[0].title}</div>
-          <div>{titleClickContent[0].username}{titleClickContent[0].createdAt}</div>
+          <div>
+            <span>{titleClickContent[0].username}</span>
+            <span>{titleClickContent[0].createdAt}</span>
+          </div>
           <div>{titleClickContent[0].content}</div>
           <div>
-            <button>
+            <button onClick={modify}>
               수정하기
             </button>
             <button 
@@ -22,10 +26,30 @@ function Read({datas, titleClickId, onHandleDeleteBtn}) {
             </button>
           </div>
         </div> 
-        :
-        <div>
-          <div>삭제된 게시물 입니다.</div>
-        </div> 
+          :
+          <div className='Content'>
+            <div>{titleClickContent[0].title}</div>
+            <div>
+              <span>{titleClickContent[0].username}</span>
+              <span>{titleClickContent[0].createdAt}</span>
+            </div>
+            <textarea 
+              defaultValue={titleClickContent[0].content} 
+              onChange={onHandleUpdateContent}>
+            </textarea>
+            <div>
+              <button onClick={modify}>
+                취소하기
+              </button>
+              <button id={titleClickContent[0].id} onClick={onHandleChange}>
+                수정완료
+              </button>
+            </div>
+          </div> 
+          :
+          <div className='Content'>
+            <div>삭제된 게시물 입니다.</div>
+          </div> 
       }
     </div>
   )

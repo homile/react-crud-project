@@ -5,14 +5,14 @@ function ContentList({datas, onHandleTitleClick}) {
   return (
     <div className="content">
       <div className="row">
-        <div className="col">{datas.id}</div> 
+        <div className="col col-id">{datas.id}</div> 
         <div className="col col-title" 
           id={datas.id} 
           onClick={onHandleTitleClick}
           >
             {datas.title}
         </div> 
-        <div className="col">{datas.createdAt}</div> 
+        <div className="col col-date">{datas.createdAt}</div> 
       </div>  
     </div>
   )

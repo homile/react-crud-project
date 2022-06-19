@@ -12,6 +12,7 @@ function App() {
   const [content, setContent] = useState('');
   const [id, setId] = useState('');
   const [createBtn, setCreateBtn] = useState(false);
+  const [modifyClick, setModifyClick] = useState(false);
 
   let idLen = dummyData[0].id+1;
 
@@ -24,24 +25,20 @@ function App() {
       createdAt: new Date().toLocaleDateString(),
     }
     console.log('저장 버튼 클릭');
-    // console.log(datas);
 
     setDummyData([datas, ...dummyData]);
   });
 
 
   const handleCreateTitle = ((e) => {
-    // console.log(e.target)
     setTitle(e.target.value);
   });
 
   const handleCreateContent = ((e) => {
-    // console.log(e.target)
     setContent(e.target.value);
   });
 
   const handleTitleClick = ((e) => {
-    // console.log(e.target.id)
     setId(e.target.id);
   });
 
@@ -56,12 +53,25 @@ function App() {
   },[dummyData])
 
   const handleDeleteBtn = (() => {
-    console.log(id);
     const filterData = dummyData.filter((el) => (el.id !== Number(id)) );
 
     setDummyData(filterData);
   });
-  
+
+  const modify = (() => {
+    modifyClick ? setModifyClick(false) : setModifyClick(true);
+  })
+
+
+  const handleChange = ((e) => {
+    setModifyClick(false);
+    for(let i = 0; i < dummyData.length; i++){
+      if(dummyData[i].id === Number(e.target.id)){
+        dummyData[i].content = content;
+        break;
+      }
+    }
+  });
 
   return (
     <div className='container'>
@@ -71,10 +81,10 @@ function App() {
           <span>목록</span>
           <button onClick={handleCreateBtn}>글쓰기</button>
         </div>
-        <div className="table-title">
-          <div className="tab">번호</div>
-          <div className="tab">제목</div>
-          <div className="tab">날짜</div>
+        <div className="row">
+          <div className="col col-id">번호</div>
+          <div className="col col-title">제목</div>
+          <div className="col col-date">날짜</div>
         </div>
         {dummyData.map((datas)=>(
           <ContentList 
@@ -99,6 +109,11 @@ function App() {
           datas = {dummyData}
           titleClickId = {Number(id)}
           onHandleDeleteBtn = {handleDeleteBtn}
+          onHandleUpdateTitle = {handleCreateTitle}
+          onHandleUpdateContent = {handleCreateContent}
+          modify = {modify}
+          modifyClick = {modifyClick}
+          onHandleChange = {handleChange}
         />
         :<Read 
           datas = {dummyData}
