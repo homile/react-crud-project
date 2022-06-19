@@ -13,7 +13,7 @@ function App() {
   const [id, setId] = useState('');
   const [createBtn, setCreateBtn] = useState(false);
 
-  let idLen = dummyData.length+1;
+  let idLen = dummyData[0].id+1;
 
   const handleSubmitClick = (() => {
     const datas ={
@@ -54,6 +54,13 @@ function App() {
     setCreateBtn(false);
     setId(dummyData.length);
   },[dummyData])
+
+  const handleDeleteBtn = (() => {
+    console.log(id);
+    const filterData = dummyData.filter((el) => (el.id !== Number(id)) );
+
+    setDummyData(filterData);
+  });
   
 
   return (
@@ -91,6 +98,7 @@ function App() {
         ? <Read 
           datas = {dummyData}
           titleClickId = {Number(id)}
+          onHandleDeleteBtn = {handleDeleteBtn}
         />
         :<Read 
           datas = {dummyData}
