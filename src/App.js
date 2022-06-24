@@ -1,33 +1,69 @@
 import {React, useEffect, useState} from 'react'
 import Create from './pages/Create'
 import ContentList from './pages/ContentList'
-import data from './resource/dummyData'
+// import data from './resource/dummyData'
 import './App.css'
 import Read from './pages/Read'
 
 function App() {
 
-  const [dummyData, setDummyData] = useState(data);
+  const domain = 'http://localhost:3001';
+
+  // const [dummyData, setDummyData] = useState(data); dummydata사용
+  const [dummyData, setDummyData] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, [])
+
+  const getData = (() => {
+    return fetch('http://localhost:3001/discussions')
+        .then((res) => res.json())
+        .then((data) => {
+            setDummyData(data)
+      })
+  })
+
+  
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [id, setId] = useState('');
   const [createBtn, setCreateBtn] = useState(false);
   const [modifyClick, setModifyClick] = useState(false);
 
-  let idLen = dummyData[0].id+1;
+  // let idLen = dummyData[0].id+1;
 
-  const handleSubmitClick = (() => {
-    const datas ={
-      id: idLen,
-      username: 'MinWoo',
+  const handleSubmitClick = () => {
+    const newData = {
       title,
       content,
-      createdAt: new Date().toLocaleDateString(),
-    }
-    console.log('저장 버튼 클릭');
+    };
 
-    setDummyData([datas, ...dummyData]);
-  });
+    fetch(domain + '/discussions/', {
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newData)
+    }).then((res) => {
+      if(res.status === 200){
+        getData();
+      }
+    })
+    // ===== dummydata 사용 =====
+    // const datas ={
+    //   id: idLen,
+    //   username: 'MinWoo',
+    //   title,
+    //   content,
+    //   createdAt: new Date().toLocaleDateString(),
+    // }
+    // console.log('저장 버튼 클릭');
+
+    // setDummyData([datas, ...dummyData]);
+    // =============================
+  };
 
 
   const handleCreateTitle = ((e) => {
@@ -53,9 +89,10 @@ function App() {
   },[dummyData])
 
   const handleDeleteBtn = (() => {
-    const filterData = dummyData.filter((el) => (el.id !== Number(id)) );
+    
 
-    setDummyData(filterData);
+    // const filterData = dummyData.filter((el) => (el.id !== Number(id)) );
+    // setDummyData(filterData);
   });
 
   const modify = (() => {
