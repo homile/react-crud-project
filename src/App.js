@@ -134,9 +134,14 @@ function App() {
     <div className='container'>
       {/* 왼쪽 목록 */}
       <div className="table">
-        <div className='table-title'>
-          <span>목록</span>
-          <button onClick={handleCreateBtn}>글쓰기</button>
+        <div className='row table-title'>
+          <div className='col'></div>
+          <div className='col'>
+            <span>목록</span>
+          </div>
+          <div className='col'>
+            <button onClick={handleCreateBtn}>글쓰기</button>
+          </div>
         </div>
         <div className="row">
           <div className="col col-id">번호</div>
