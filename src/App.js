@@ -89,7 +89,13 @@ function App() {
   },[dummyData])
 
   const handleDeleteBtn = (() => {
-    
+    fetch(domain + `/discussions/${id}`,{
+      method: 'DELETE',
+    }).then((res) => {
+      if (res.status === 200){
+        getData();
+      }
+    })
 
     // const filterData = dummyData.filter((el) => (el.id !== Number(id)) );
     // setDummyData(filterData);
@@ -102,12 +108,26 @@ function App() {
 
   const handleChange = ((e) => {
     setModifyClick(false);
-    for(let i = 0; i < dummyData.length; i++){
-      if(dummyData[i].id === Number(e.target.id)){
-        dummyData[i].content = content;
-        break;
+
+    fetch(domain + `/discussions/${e.target.id}`, {
+      method: 'PUT',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({'content':content})
+    }).then((res) => {
+      if(res.status === 200){
+        getData();
       }
-    }
+    })
+
+    // for(let i = 0; i < dummyData.length; i++){
+    //   if(dummyData[i].id === Number(e.target.id)){
+    //     dummyData[i].content = content;
+    //     break;
+    //   }
+    // }
   });
 
   return (
